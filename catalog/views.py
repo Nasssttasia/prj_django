@@ -1,8 +1,15 @@
 from django.shortcuts import render
 
+from catalog.models import Product
+
 
 def homepage(request):
-    return render(request, 'catalog/homepage.html')
+    product_list = Product.objects.all()
+    context = {
+        'object_list': product_list,
+        'title': 'Главная'
+    }
+    return render(request, 'catalog/homepage.html', context)
 
 
 def contacts(request):
@@ -11,6 +18,19 @@ def contacts(request):
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(f'{name}, {phone} - {message}')
-    return render(request, 'catalog/contacts.html')
 
-# Create your views here.
+    context = {
+        'title': 'Контакты'
+    }
+    return render(request, 'catalog/contacts.html', context)
+
+
+def product(request, pk):
+    product_list = Product.objects.filter(category=pk)
+    context = {
+        'object_list': product_list,
+        'title': 'Продукт',
+        'name': product_list
+    }
+    return render(request, 'catalog/product.html', context)
+
