@@ -1,9 +1,11 @@
 from django.core.management import BaseCommand
 
-from catalog.models import Product
+from catalog.models import Product, Category
 
 
 class Command(BaseCommand):
+
+    category = Category.objects.all()
 
     def handle(self, *args, **options):
         product_list = [

@@ -11,11 +11,11 @@
 
          src="{{ object.image|mymedia }}"
          alt="Card image cap">
-    <h3 class="fs-2 text-body-emphasis">{{ name }}</h3>
-    <p>{{ name }}</p>
-    <p>Категория: {{ object_list.category }}</p>
-    <p>Цена: {{ object_list.price }}</p>
-    <p>Дата создания: {{ object_list.date_of_creation }}</p>
+    <h3 class="fs-2 text-body-emphasis">{{ object.title }}</h3>
+    <p>{{ object.description }}</p>
+    <p>Категория: {{ object.category }}</p>
+    <p>Цена: {{ object.price }}</p>
+    <p>Дата создания: {{ object.date_of_creation }}</p>
     <a href="#" class="icon-link">
         Купить
     </a>
