@@ -26,7 +26,7 @@ def contacts(request):
 
 
 def product(request, pk):
-    product = Product.objects.get(category=pk)
+    product = Product.objects.get(id=pk)
     context = {
         'object': product,
         'title': 'Продукт',
