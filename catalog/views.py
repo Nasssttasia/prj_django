@@ -1,8 +1,14 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 
 
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/homepage.html'
+
+""" FBV:
 def homepage(request):
     product_list = Product.objects.all()
     context = {
@@ -10,7 +16,7 @@ def homepage(request):
         'title': 'Главная'
     }
     return render(request, 'catalog/homepage.html', context)
-
+"""
 
 def contacts(request):
     if request.method == 'POST':
@@ -25,6 +31,11 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product.html'
+
+""" FBV:
 def product(request, pk):
     product = Product.objects.get(id=pk)
     context = {
@@ -32,4 +43,4 @@ def product(request, pk):
         'title': 'Продукт',
     }
     return render(request, 'catalog/product.html', context)
-
+"""
