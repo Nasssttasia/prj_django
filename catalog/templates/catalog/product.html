@@ -30,6 +30,14 @@
                             <td>Цена</td>
                             <td>{{ object.price }}</td>
                         </tr>
+                        <tr>
+                            {% for version in object.version_set.all %}
+                                {% if version.is_active %}
+                                    <p>Текущая версия: {{ version.number }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+
                     </table>
                 </div>
 
