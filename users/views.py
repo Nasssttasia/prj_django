@@ -48,13 +48,13 @@ def send_password(request):
         user = User.objects.get(email=email)
         if user.email == email:
             new_password = secrets.token_urlsafe(nbytes=5)
-            user.password = new_password
+            user.set_password(new_password)
             user.save()
             send_mail(
                 subject='Восстановление пароля',
                 message=f'Здравствуйте! Используйте новый пароль: {new_password}',
                 from_email=settings.EMAIL_HOST_USER,
-                recipient_list=user.email
+                recipient_list=[email]
             )
             return redirect(reverse('users:login'))
     return render(request, 'users/send_password.html')
