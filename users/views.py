@@ -19,6 +19,7 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         code = secrets.token_urlsafe(nbytes=7)
+        self.object.code = code
         send_mail(
             subject='Подтвердите почту',
             message=f'Добро пожаловать! Чтобы подтвердить вашу почту введите код {code}',

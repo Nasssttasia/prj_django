@@ -1,5 +1,6 @@
 from django.db import models
 
+from users.models import User
 
 NULLABLE = {'null': True, 'blank': True}
 
@@ -13,6 +14,7 @@ class Product(models.Model):
     date_of_creation = models.DateField(**NULLABLE)
     date_of_change = models.DateField(**NULLABLE)
     is_published = models.BooleanField(default=False, verbose_name='опубликовано', **NULLABLE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
         return f'{self.title}'

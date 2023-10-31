@@ -13,6 +13,12 @@ class ProductCreateView(CreateView):
     #fields = ('title', 'description', 'image', 'category', 'price') убираем, так как используем джанго формс
     success_url = reverse_lazy('catalog:homepage')
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
 
 class ProductUpdateView(UpdateView):
     model = Product
