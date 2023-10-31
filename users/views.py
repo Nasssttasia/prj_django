@@ -42,6 +42,24 @@ def verify(request):
     return render(request, 'users/verify.html')
 
 
+def send_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = User.objects.get(email=email)
+        if user.email == email:
+            new_password = secrets.token_urlsafe(nbytes=5)
+            user.password = new_password
+            user.save()
+            send_mail(
+                subject='Восстановление пароля',
+                message=f'Здравствуйте! Используйте новый пароль: {new_password}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=user.email
+            )
+            return redirect(reverse('users:login'))
+    return render(request, 'users/send_password.html')
+
+
 class ProfileView(UpdateView):
     model = User
     form_class = UserProfileForm
