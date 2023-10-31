@@ -12,6 +12,7 @@ class Product(models.Model):
     price = models.IntegerField()
     date_of_creation = models.DateField(**NULLABLE)
     date_of_change = models.DateField(**NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='опубликовано', **NULLABLE)
 
     def __str__(self):
         return f'{self.title}'

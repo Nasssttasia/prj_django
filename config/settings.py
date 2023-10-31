@@ -141,8 +141,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_POST = 465
-EMAIL_HOST_USER = 'nastya2360@yandex.ru'
-EMAIL_HOST_PASSWORD = 'Nbhdiloveyou1'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply@oscarbot.ru'
+EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
 EMAIL_USE_SSL = True
 

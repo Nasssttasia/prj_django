@@ -1,6 +1,8 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
+
+{% if user.is_authenticated %}
 <div class="col-12 mb-5">
     <a class="btn btn-outline-primary" href="{% url 'catalog:create' %}">Добавить продукт</a>
 </div>
@@ -29,4 +31,10 @@
     </div>
 </div>
 {% endfor %}
+
+{% else %}
+<h4 class="my-0 mr-md-auto font-weight-normal">Пожалуйста, войдите в свой профиль для просмотра продуктов.</h4>
+
+{% endif %}
+
 {% endblock %}
