@@ -23,6 +23,12 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('title',)
+        permissions = [
+            (
+                "set_published_status",
+                "Can publish post"
+            )
+        ]
 
 
 class Category(models.Model):

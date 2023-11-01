@@ -4,7 +4,9 @@
 
 {% if user.is_authenticated %}
 <div class="col-12 mb-5">
+    {% if perms.catalog.add_product %}
     <a class="btn btn-outline-primary" href="{% url 'catalog:create' %}">Добавить продукт</a>
+    {% endif %}
 </div>
 {% for object in object_list %}
 <div class="col-3">
@@ -19,12 +21,18 @@
             </ul>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
+                    {% if perms.catalog.view_product %}
                     <a href="{% url 'catalog:product' object.pk %}"
                        class="btn btn-lg btn-block btn-outline-primary" >View</a>
+                    {% endif %}
+                    {% if perms.catalog.change_product %}
                     <a href="{% url 'catalog:edit' object.pk %}"
                        class="btn btn-lg btn-block btn-outline-primary" >Edit</a>
+                    {% endif %}
+                    {% if perms.catalog.delete_product %}
                     <a href="{% url 'catalog:delete' object.pk %}"
                        class="btn btn-lg btn-block btn-outline-primary" >Delete</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
