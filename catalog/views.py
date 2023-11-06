@@ -2,11 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.exceptions import PermissionDenied
 
 from catalog.forms import ProductForm, VersionForm, ProductFormModerator
 from catalog.models import Product, Version
+from catalog.services import get_cached_categories
 
 
 class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -84,6 +86,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     model = Product
     template_name = 'catalog/product.html'
     permission_required = 'catalog.view_product'
+    get_cached_categories()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
