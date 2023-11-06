@@ -3,8 +3,9 @@ from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.core.exceptions import PermissionDenied
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductFormModerator
 from catalog.models import Product, Version
 
 
@@ -49,6 +50,19 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
             formset.save()
             
         return super().form_valid(form)
+
+    def get_form_class(self):
+        if self.request.user.groups.filter(name='moderator').exists():
+            return ProductFormModerator
+        return ProductForm
+
+    def get_object(self, queryset=None):
+        product = super().get_object(queryset)
+        if product.owner == self.request.user:
+            return product
+        if self.request.user.has_perm('catalog.change_product'):
+            return product
+        raise PermissionDenied
 
 
 class ProductListView(ListView):
