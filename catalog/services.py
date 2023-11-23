@@ -14,4 +14,4 @@ def get_cached_categories():
             return category_list
     else:
         category_list = Category.objects.all()
-        return category_list
+    return category_list

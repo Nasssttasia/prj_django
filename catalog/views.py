@@ -17,6 +17,7 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     permission_required = 'catalog.add_product'
     #fields = ('title', 'description', 'image', 'category', 'price') убираем, так как используем джанго формс
     success_url = reverse_lazy('catalog:homepage')
+    get_cached_categories()
 
     def form_valid(self, form):
         self.object = form.save()
@@ -86,7 +87,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     model = Product
     template_name = 'catalog/product.html'
     permission_required = 'catalog.view_product'
-    get_cached_categories()
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
